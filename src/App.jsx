@@ -14,6 +14,7 @@ return (
     <form onSubmit={handleSearch}>
 
      <input type="text" placeholder="Search movies" onChange={(e) => setSearchText(e.target.value)} value={searchText}/>
+     <button type="submit">Cerca</button>
 
     </form>
    </header>
@@ -26,8 +27,13 @@ return (
 
     return (
       <ul className='movie-list'>
-        {movies && movies.map((movie, index) => (
-         <li key={index} >{movie.title}</li>
+        {movies && movies.map((movie) => (
+          <li key={movie.id}>
+            <h3>{movie.title}</h3>
+            <div>Titolo Originale: {movie.original_title}</div>
+            <div>Lingua: {movie.original_language}</div>
+            <div>Voto: {movie.vote_average}</div>
+          </li>
         ))}
       </ul>
     );

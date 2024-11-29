@@ -1,10 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 const GlobalContext = createContext();
 
-const img_base_url = 'https://image.tmdb.org/t/p/w342';
-
-
-
 function GlobalContextProvider({ children }) {
 
   const [movies, setMovies] = useState([]);

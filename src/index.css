@@ -12,3 +12,34 @@ body {
   background-color: black;
   color: white;
 }
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  list-style: none;
+}
+
+.movie-list li {
+  background: #1a1a1a;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.movie-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.movie-list .fas.fa-star {
+  color: gold;
+  margin-left: 7px;
+}
+
+.movie-list .far.fa-star {
+  color: lightgray;
+  margin-left: 7px;
+}

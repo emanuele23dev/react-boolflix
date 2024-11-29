@@ -1,8 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 const GlobalContext = createContext();
 
-// COME "poster_sizes" INSERIAMO w780 COME DIMENSIONE INZIALE E POI LA ADATTIAMO IN SEGUITO
-const img_base_url = 'https://image.tmdb.org/t/p/w780';
+const img_base_url = 'https://image.tmdb.org/t/p/w342';
 
 
 
@@ -14,19 +13,37 @@ function GlobalContextProvider({ children }) {
 
   const api_key = import.meta.env.VITE_MOVIES_API_KEY;
  
-  const base_url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`;
-
-
   function handleSearch(e) {
     e.preventDefault();
-  
-    fetch(base_url).then((res) => res.json())
-    .then(({results}) => {
-      console.log(results);
-      
-setMovies(results)
-  })
-}
+    
+    const movies_url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`;
+    const serietv_url = `https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${searchText}`;
+
+    fetch(movies_url)
+      .then(res => res.json())
+      .then(movieData => {
+       
+        fetch(serietv_url)
+          .then(res => res.json())
+          .then(tvData => {
+            const tv_series = tvData.results.map(show => ({
+              id: show.id,
+              title: show.name,
+              original_title: show.original_name,
+              original_language: show.original_language,
+              vote_average: show.vote_average,
+              type: 'tv'
+            }));
+
+            const movies = movieData.results.map(movie => ({
+              ...movie,
+              type: 'movie'
+            }));
+
+            setMovies([...movies, ...tv_series]);
+          });
+      });
+  }
 
 
   const values = {
@@ -34,7 +51,6 @@ setMovies(results)
     setMovies,
     searchText,
     setSearchText,
-    base_url,
     handleSearch,
   }
 

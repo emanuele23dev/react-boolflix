@@ -1,4 +1,5 @@
 import { GlobalContextProvider, useGlobalContext } from './contexts/GlobalContext';
+import ReactCountryFlag from "react-country-flag";
 
 function App() {
 
@@ -14,7 +15,7 @@ return (
     <form onSubmit={handleSearch}>
 
      <input type="text" placeholder="Search movies" onChange={(e) => setSearchText(e.target.value)} value={searchText}/>
-     <button type="submit">Cerca</button>
+     <button type="submit">Search</button>
 
     </form>
    </header>
@@ -25,13 +26,29 @@ return (
   function MovieList() {
     const { movies } = useGlobalContext();
 
+    const languageToCountry = {
+      'en': 'GB',
+      'it': 'IT',
+      'es': 'ES',
+      'fr': 'FR',
+      'ja': 'JP',
+    
+    };
+
     return (
       <ul className='movie-list'>
         {movies && movies.map((movie) => (
           <li key={movie.id}>
             <h3>{movie.title}</h3>
             <div>Titolo Originale: {movie.original_title}</div>
-            <div>Lingua: {movie.original_language}</div>
+            <div>Lingua: {
+              languageToCountry[movie.original_language.toLowerCase()] ? 
+              <ReactCountryFlag 
+                countryCode={languageToCountry[movie.original_language.toLowerCase()]} 
+                svg 
+              /> : 
+              movie.original_language
+            }</div>
             <div>Voto: {movie.vote_average}</div>
           </li>
         ))}

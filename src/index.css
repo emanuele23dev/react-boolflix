@@ -9,37 +9,124 @@ img {
 }
 
 body {
-  background-color: black;
+  background-color: #222222;
   color: white;
 }
 
-.movie-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  list-style: none;
+
+
+.netflix-header {
+  background-color: #141414;
+  padding: 1rem 2rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
-.movie-list li {
-  background: #1a1a1a;
-  padding: 10px;
-  border-radius: 8px;
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo {
+  height: 40px;
+  object-fit: contain;
+}
+
+.search-input {
+  background-color: #323232;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 4px 0 0 4px;
+}
+
+.search-button {
+  background-color: #c5c5c5;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: rgb(65, 65, 65);
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.movies-container {
+  margin-top: 80px;
+  padding: 2rem;
+  /* background-color: #141414; */
+  min-height: 100vh;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.movie-card {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.movie-poster-container {
+  position: relative;
+  aspect-ratio: 2/3;
 }
 
 .movie-poster {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   border-radius: 4px;
-  margin-bottom: 10px;
 }
 
-.movie-list .fas.fa-star {
-  color: gold;
-  margin-left: 7px;
+
+.movie-info {
+  position: absolute;
+  border-radius: 4px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.movie-list .far.fa-star {
-  color: lightgray;
-  margin-left: 7px;
+.movie-card:hover .movie-info {
+  opacity: 1;
+}
+
+.movie-info h3 {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.movie-info div {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #ccc;
+  margin-bottom: 0.3rem;
+}
+
+.fas {
+  color: #ffd700;
+  margin-right: 0.5rem;
+}
+
+.far {
+  margin-right: 0.5rem;
 }

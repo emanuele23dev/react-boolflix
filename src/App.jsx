@@ -6,24 +6,32 @@ import ReactCountryFlag from "react-country-flag";
 
 function App() {
   function AppHeader() {
-    const { searchText, setSearchText, base_url, handleSearch } =
-      useGlobalContext();
-    console.log(base_url);
-
+    const { searchText, setSearchText, handleSearch } = useGlobalContext();
+    
     return (
       <header className="netflix-header">
         <div className="header-content">
-        <img className="logo" width={130} src="./src/assets/boolflix.png" alt="" />
-        <form onSubmit={handleSearch}>
-          <input
-          className="search-input"
-            type="text"
-            placeholder="Search movies"
-            onChange={(e) => setSearchText(e.target.value)}
-            value={searchText}
-          />
-          <button className="search-button" type="submit">Search</button>
-        </form>
+          <div className="header-left">
+            <img className="logo" width={130} src="./src/assets/boolflix.png" alt="" />
+            <nav className="main-nav">
+              <a href="#" className="nav-link">Home</a>
+              <a href="#" className="nav-link">Serie TV</a>
+              <a href="#" className="nav-link">Film</a>
+              <a href="#" className="nav-link">Originali</a>
+              <a href="#" className="nav-link">Aggiunti di recente</a>
+              <a href="#" className="nav-link">La mia lista</a>
+            </nav>
+          </div>
+          <form onSubmit={handleSearch}>
+            <input
+              className="search-input"
+              type="text"
+              placeholder="Search movies"
+              onChange={(e) => setSearchText(e.target.value)}
+              value={searchText}
+            />
+            <button className="search-button" type="submit">Search</button>
+          </form>
         </div>
       </header>
     );
@@ -37,10 +45,8 @@ function App() {
       it: "IT",
       es: "ES",
       fr: "FR",
-      de: "DE",
       ja: "JP",
       ko: "KR",
-      zh: "CN",
     };
 
     const imgBaseUrl = "https://image.tmdb.org/t/p/w342";
@@ -54,6 +60,8 @@ function App() {
       ));
     };
 
+    const fallbackImage = "https://via.placeholder.com/342x513?text=No+Image+Available";
+
     return (
       <div className="movies-container">
         <div className="movies-grid">
@@ -63,15 +71,16 @@ function App() {
               return (
                 <div key={`${movie.type}-${movie.id}`} className="movie-card">
                   <div className="movie-poster-container">
-                    {movie.poster_path && (
-                      <img
-                        src={`${imgBaseUrl}${movie.poster_path}`}
-                        alt={movie.title}
-                        className="movie-poster"
-                      />
-                    )}
+                    <img
+                      src={movie.poster_path ? `${imgBaseUrl}${movie.poster_path}` : fallbackImage}
+                      alt={movie.title}
+                      className="movie-poster"
+                      onError={(e) => {
+                        e.target.src = fallbackImage;
+                      }}
+                    />
                     <div className="movie-info">
-                      <h3>{movie.title}</h3>
+                      <h4>{movie.title}</h4>
                       <div>Tipo: {movie.type === "movie" ? "Film" : "Serie TV"}</div>
                       <div>Titolo Originale: {movie.original_title}</div>
                       <div className="language">
@@ -92,8 +101,7 @@ function App() {
               );
             })}
         </div>
-        </div>
-
+      </div>
     );
   }
 

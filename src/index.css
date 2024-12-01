@@ -13,8 +13,6 @@ body {
   color: white;
 }
 
-
-
 .netflix-header {
   background-color: #141414;
   padding: 1rem 2rem;
@@ -32,10 +30,34 @@ body {
   margin: 0 auto;
 }
 
-.logo {
-  height: 40px;
-  object-fit: contain;
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
+
+.logo {
+  width: 120px;
+}
+
+
+.main-nav {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.nav-link {
+  color: #e5e5e5;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #b3b3b3;
+}
+
 
 .search-input {
   background-color: #323232;
@@ -57,21 +79,19 @@ body {
 .movies-container {
   margin-top: 80px;
   padding: 2rem;
-  /* background-color: #141414; */
   min-height: 100vh;
 }
 
 .movies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 15px;
 }
 
 .movie-card {
-  position: relative;
-  transition: transform 0.3s ease;
+  flex: 0 0 auto;
+  width: calc(20% - 16px);
 }
 
 .movie-card:hover {
@@ -81,7 +101,8 @@ body {
 
 .movie-poster-container {
   position: relative;
-  aspect-ratio: 2/3;
+  width: 100%;
+  height: 100%;
 }
 
 .movie-poster {
@@ -89,37 +110,41 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 4px;
+  display: block;
 }
 
 
 .movie-info {
   position: absolute;
-  border-radius: 4px;
   top: 0;
   left: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
   padding: 1rem;
   opacity: 0;
   transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .movie-card:hover .movie-info {
   opacity: 1;
 }
 
-.movie-info h3 {
+.movie-info h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
   text-align: center;
-  margin-top: 40px;
-  font-size: 1.2rem;
-  color: white;
 }
 
 .movie-info div {
   text-align: center;
   font-size: 0.8rem;
   color: #ccc;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 
 .fas {
@@ -129,4 +154,10 @@ body {
 
 .far {
   margin-right: 0.5rem;
+}
+
+.movie-card .movie-info {
+  min-height: 300px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 4px;
 }
